@@ -1,0 +1,11 @@
+{% extends 'users/base.html' %}
+{% block content %}
+<div class="p-3 text-success-emphasis bg-success-subtle border border-success-subtle rounded-3">
+    {% for post in post_list %}
+    <ul class="list-group">
+  <li class="list-group-item"><p align="center"><h3>{{ post.title }}</h3></p> <br>{{ post.description|truncatechars:"300" }} <p align="right"><a href="{{ post.id }}">Перейти до статті</a></p></li>
+</ul>
+    {% endfor %}
+</div>
+{% endblock %}
+

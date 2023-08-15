@@ -1,0 +1,37 @@
+{% extends 'users/base.html' %}
+{% block content %}
+<div class="p-3 text-success-emphasis bg-success-subtle border border-success-subtle rounded-3">
+    <p align="center"><img src="{{ post.img.url }}" width="20%"></p>
+   <p align="center"> <h3>{{ post.title }}</h3></p>
+    <p>{{ post.description }}</p>
+    <p align="right">{{ post.author }}</p>
+</div>
+
+
+    <div class="p-3 text-success-emphasis bg-success-subtle border border-success-subtle rounded-3">
+        {% if user.is_authenticated  %}
+        <h3>Залишити коментар</h3>
+        <div>
+            <form action="{% url 'add_comments' post.id %}" method="post">
+                {% csrf_token %}
+                <div class="mb-3">
+                <label>Привіт, {{ user.username }}, залиш свій коментар тут!</label>
+                    </div>
+                <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Ваш коментар:</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="text_comments"></textarea>
+                <div><input type="submit", value="Ok"></div>
+                    </div>
+            </form>
+            {% else %}
+            Щоб мати можливість залишати коментарі - зареєструйтеся!
+            {% endif %}
+        </div>
+    </div>
+<div class="p-3 text-success-emphasis bg-success-subtle border border-success-subtle rounded-3">
+    {% for comment in post.comments_set.all %}
+    <ul class="list-group">
+  <li class="list-group-item">{{ comment.text_comments }}</li>
+    {% endfor %}
+</div class="p-3 text-success-emphasis bg-success-subtle border border-success-subtle rounded-3">
+{% endblock %}
